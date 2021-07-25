@@ -11,21 +11,19 @@ g=9.81;
 
 type='horizontal';
 site='B';
-mod=1.15;
-count=0;
 damping=0.05;
 ag=0.261*g
 
+%%% set parameters for the EC8 target spectrum
+
 target.damping=damping;
 target.ag=ag;
-
-
+target.soil=soil;
+target.type=type;
 targetSpectrum=target.pseudoAcc;
 targetPeriod=target.time;
-meanSpectrum=zeros(numel(target),1);
 
 intervalComp=find(targetPeriod>0.1 & targetPeriod<4);
-
 
 
 folderOut=['typeB/'];
@@ -33,6 +31,9 @@ folderOut=['typeB/'];
 mkdir (folderOut)
 
 tolerance=0.23;
+mod=1.15;
+count=0;
+meanSpectrum=zeros(numel(target),1);
 
 for i=1:numel(Earthquake)
     direction=Earthquake(i).data.direction;
