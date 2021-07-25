@@ -7,9 +7,13 @@ target=elasticSpectrum; %%% you need to download it from the other repository
 %%%% parameters for the computation of the reference spectrum
 
 g=9.81;
+
+%%%% you can set several parameters to restrict the ground motion variability
+maxDistance=70;     %%% epicentral distance
+maxDuration=100;    %%% just if you care about the runtime
 %%%% target spectrum
 
-type='horizontal';
+type='Type 1'; %%% or 'Type 2'
 site='B';
 damping=0.05;
 ag=0.261*g
@@ -23,6 +27,7 @@ target.type=type;
 targetSpectrum=target.pseudoAcc;
 targetPeriod=target.time;
 
+% default interval for computing the agreement
 intervalComp=find(targetPeriod>0.1 & targetPeriod<4);
 
 
