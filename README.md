@@ -4,4 +4,4 @@ This program creates a set of spectrum-compatible ground motion from a given dat
 </p>
 
 
-In order to successfully run this Matlab script, you need to download the following archive:   <a href="https://drive.google.com/open?id=1Vp-eV-uJSjAuZWjb6-XMZbjVAFajxbe2&authuser=btagliafierro%40unisa.it&usp=drive_fs">link!</a> 
+In order to successfully run this Matlab script, you need to download the following archive:   <a href="https://drive.google.com/open?id=1Vp-eV-uJSjAuZWjb6-XMZbjVAFajxbe2&authuser=btagliafierro%40unisa.it&usp=drive_fs">link!</a> (1.37 GB)
