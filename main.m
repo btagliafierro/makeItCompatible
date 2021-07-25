@@ -31,7 +31,7 @@ targetPeriod=target.time;
 intervalComp=find(targetPeriod>0.1 & targetPeriod<4);
 
 
-folderOut=['typeB/'];
+folderOut=['set_' site '_' type ];
 [~, ~] = rmdir(folderOut, 's');
 mkdir (folderOut)
 
@@ -66,15 +66,15 @@ for i=1:numel(Earthquake)
             if goodness<tolerance
                 count=count+1;
                 meanSpectrum=meanSpectrum+k*spectrum;
-               figure(1); hold on
+                figure(1); hold on
                 plot(targetPeriod,k*spectrum/g)
                 drawnow
 
                 %%%% make folder with file you like
                 data=archive.Earthquake(i);
                 data.data.Amplification2Comp=k;
-%                 save([folderOut 'acc_' num2str(i) '.mat'],'data')
-                save([folderOut 'Acc_' num2str(count) '.mat'],'data')    
+%                save([folderOut 'acc_' num2str(i) '.mat'],'data')
+                save([folderOut '/Acc_' num2str(count) '.mat'],'data')    
                 figure(2); hold on
                 acceleration=data.acceleration;
                 time=0:0.005:numel(acceleration)*0.005-0.005;
