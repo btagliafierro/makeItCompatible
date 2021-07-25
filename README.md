@@ -1,6 +1,6 @@
 # makeItCompatible
 <p align="justify">
-This program creates a set of spectrum-compatible ground motion from a given database that contains more than 8000 recorded accelerograms. The aim of this program is to make sets of accelerogram that can be used for safety checks according to <em> Eurocode 8: Design of structures for earthquake resistance - Part 1 : General rules, seismic actions and rules for buildings</em> 
+This program creates a set of spectrum-compatible ground motion from a given database that contains more than 8000 recorded accelerograms. The aim of this program is to make sets of accelerogram that can be used for safety checks according to <em> Eurocode 8: Design of structures for earthquake resistance - Part 1 : General rules, seismic actions and rules for buildings.</em> 
 </p>
 
 
