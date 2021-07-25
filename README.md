@@ -1,8 +1,8 @@
 # makeItCompatible
 <p align="justify">
-This program creates a set of spectrum-compatible ground motion from a given database that contains more than 8000 recorded accelerograms. The aim of this program is to make sets of accelerogram that can be used for safety checks according to <em> Eurocode 8: Design of structures for earthquake resistance - Part 1 : General rules, seismic actions and rules for buildings.</em> 
+This program creates a set of spectrum-compatible ground motions from a given database that contains more than 8000 recorded accelerograms. The aim of this program is to make sets of accelerogram that can be used for safety checks according to <em> Eurocode 8: Design of structures for earthquake resistance - Part 1 : General rules, seismic actions and rules for buildings.</em> (a.k.a. EC8)
 
-The program will produce for you a folder in which the data are saved per each gorund motion of your set. Running the case with the default value and parameters, you'll get:
+The program will produce for you a folder in which the set is saved. By running the case with the default values and parameters, you'll get:
   
 ![spectra](https://user-images.githubusercontent.com/27778212/126907291-b246fab6-b5ed-4452-b6e1-ab8cc52ab93e.png)
 
