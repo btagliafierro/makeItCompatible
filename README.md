@@ -1,1 +1,1 @@
-# selectSpectra
+# makeItCompatible
