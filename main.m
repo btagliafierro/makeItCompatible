@@ -19,10 +19,9 @@ maxDuration=80;    %%% just if you care about the runtime
 
 type='Type_1'; %%% or 'Type_1'
 soil='B';
-target=elasticSpectrum(type,soil); %%% you need to download it from the other repository
-%%% https://github.com/btagliafierro/EC8Spectra/blob/master/elasticSpectrum.m
-%%%% parameters for the computation of the reference spectrum
+target=elasticSpectrum(type,soil);
 
+%%%% parameters for the computation of the reference spectrum
 
 damping=0.03;
 ag=0.25*g;
