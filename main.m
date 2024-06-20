@@ -1,14 +1,14 @@
 clear; fclose all;clc; close
 %%% make sure you download the needed archive from my drive
 
-load archiveAll.mat;
-data=archiveAll.data;
-spectra=archiveAll.spectra;
-clear archiveAll
+dataSpectrum=load ('archiveSpectra_D003.mat');
+dataAccelerogram=load("archiveAll.mat","Earthquake");
+data=dataSpectrum.Earthquake.data;
+spectrumData=dataSpectrum.Earthquake;
+clear dataSpectrum
 %% I suggest you run this section to skip the loading time
 close all
-target=elasticSpectrum; %%% you need to download it from the other repository
-%%%% parameters for the computation of the reference spectrum
+
 
 g=9.81;
 
@@ -17,50 +17,53 @@ maxDistance=50;     %%% epicentral distance
 maxDuration=80;    %%% just if you care about the runtime
 %%%% target spectrum
 
-type='Type 1'; %%% or 'Type 2'
+type='Type_1'; %%% or 'Type_1'
 soil='B';
-damping=0.05;
-ag=0.261*g;
+target=elasticSpectrum(type,soil); %%% you need to download it from the other repository
+%%% https://github.com/btagliafierro/EC8Spectra/blob/master/elasticSpectrum.m
+%%%% parameters for the computation of the reference spectrum
+
+
+damping=0.03;
+ag=0.25*g;
 
 %%% set parameters for the EC8 target spectrum
 
 target.damping=damping;
 target.ag=ag;
-target.soil=soil;
-target.type=type;
 targetSpectrum=target.pseudoAcc;
 targetPeriod=target.time;
 
 % default interval for computing the agreement
-intervalComp=find(targetPeriod>0.1 & targetPeriod<4);
+intervalComp=find(targetPeriod>0.10 & targetPeriod<4.0);
 
 
-folderOut=['set_' soil '_' type ];
+folderOut=['set_' soil '_type_' type '_damping_' num2str(damping) ];
 [~, ~] = rmdir(folderOut, 's');
 mkdir (folderOut)
 
-tolerance=0.23;
-mod=1.15;
+tolerance=0.2;
+mod=1.10; %%% it can be useful to adjust the mean value on the plateaux
 count=0;
-meanSpectrum=zeros(numel(target),1);
+meanSpectrum=0; %% matlab will cast this as soon as we perform the first operation.
 
-for i=1:numel(spectra)
-    direction=spectra(i).data.direction;
-    dist=spectra(i).data.edicentral_d;
+for i=1:numel(dataAccelerogram.Earthquake)
+    direction=spectrumData(i).data.direction;
+    dist=spectrumData(i).data.edicentral_d;
     
-    duration=spectra(i).data.duration;
+    duration=spectrumData(i).data.duration;
     if ~contains(direction,'Z') && dist<maxDistance && duration<maxDuration %% automatically excludes vertical components
-        period=spectra(1).period;
-        spectrum=spectra(i).spectrum;
+        period=spectrumData(1).period;
+        spectrum=spectrumData(i).spectrum;
         
         period(isnan(spectrum))=[];
         spectrum(isnan(spectrum))=[];
         
-        soilTemp=spectra(i).data.site;
+        soilTemp=spectrumData(i).data.site;
         if ~isempty(spectrum) &&  contains(soilTemp,soil)
             
             spectrum=interp1(period, spectrum,targetPeriod);
-            spectrum(1)=spectra(i).spectrum(1);
+            spectrum(1)=spectrumData(i).spectrum(1);
             
             fun = @(x) sseval(x,targetSpectrum(intervalComp)*mod,spectrum(intervalComp));
             
@@ -78,10 +81,10 @@ for i=1:numel(spectra)
                 drawnow
 
                 %%%% make folder with file you like
-                temp=data.Earthquake(i);
-                temp.data.Amplification2Comp=k;
-%                 save([folderOut 'acc_' num2str(i) '.mat'],'data')
-                save([folderOut 'Acc_' num2str(count) '.mat'],'temp')    
+                temp=dataAccelerogram.Earthquake(i);
+                temp.dataAccelerogram.Amplification2Comp=k;
+%                 save([folderOut '/acc_' num2str(i) '.mat'],'data')
+                save([folderOut '/Acc_' num2str(count) '.mat'],'temp')    
                 figure(2); hold on; box on
                 acceleration=temp.acceleration;
                 time=0:0.005:numel(acceleration)*0.005-0.005;
@@ -94,22 +97,24 @@ end
 meanSpectrum=meanSpectrum/count;
 
 figure(1);
-legend('AutoUpdate','on')
+leg=legend('AutoUpdate','on');
 plot(targetPeriod,targetSpectrum/g,'r','Linewidth',2,'DisplayName','target')
 plot(targetPeriod,meanSpectrum/g,'b','Linewidth',2,'DisplayName','mean')
 plot(targetPeriod,0.9*targetSpectrum/g,'r--','Linewidth',2,'DisplayName','0.9*target')
 plot(targetPeriod,1.2*targetSpectrum/g,'r--','Linewidth',2,'DisplayName','1.2*target')
-legend()
+leg.FontSize=8;
 xlabel('Period [s]','FontSize',7)
 ylabel('S_{da} [g]','FontSize',7)
 set(gcf,'units','centimeters' ,'position',[1,1,10,6])
+ax=gca;
+ax.FontSize=8;
+
 disp(['I found ' num2str(count) ' accelerograms'])
 
 axis([0 4 0 inf])
-print -dpng /spectra.png
+print -dpng spectra.png
 
 %%% functions
 function sse=sseval(k,S1,S2)
   sse=sum((S1-k*S2).^2);
 end
-
