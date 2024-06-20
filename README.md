@@ -10,7 +10,7 @@ In order to successfully run this Matlab script, you need to download the follow
 
 <a href="https://drive.google.com/open?id=17HCFzHRFHDPMOKp3tyNP51tiQoR6Gj5K&usp=drive_fs">archive.mat</a> (1.32 GB and it containes a 8510 accelerograms and their synthetic description). 
 
-<a href="https://drive.google.com/open?id=1FAqECtXcqnlCBOALgAzDVKUXI0zCihJ7&usp=drive_fs">archiveSpectra.mat!</a> (20 MB and it containes the spectra calcutated at a 3% damping). 
+<a href="https://drive.google.com/open?id=1FAqECtXcqnlCBOALgAzDVKUXI0zCihJ7&usp=drive_fs">archiveSpectra_D003.mat!</a> (20 MB and it containes the spectra calcutated at a 3% damping). 
 
 Then copy this file.mat into the folder you cloned from this repository. The archive contains 8510 raw ground motions, related to more than 3000 events, along with their elastic response spectra. You need the following class as well: elasticSpectrum <a href="https://github.com/btagliafierro/EC8Spectra/blob/master/elasticSpectrum.m">elasticSpectrum!</a>
 
