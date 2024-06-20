@@ -2,7 +2,7 @@ clear; fclose all;clc; close
 %%% make sure you download the needed archive from my drive
 
 dataSpectrum=load ('archiveSpectra_D003.mat');
-dataAccelerogram=load("archiveAll.mat","Earthquake");
+dataAccelerogram=load("archive.mat","Earthquake");
 data=dataSpectrum.Earthquake.data;
 spectrumData=dataSpectrum.Earthquake;
 clear dataSpectrum
